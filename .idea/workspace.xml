@@ -4,23 +4,7 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0e1158eb-d8fb-466a-8f14-1f78963bf11b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/blockchain_iterator.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cli_createBlockChain.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cli_createWallet.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cli_getBalance.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cli_listAddresses.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cli_send.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cli_showBlockChain.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/transaction_input.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/transaction_output.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blockchain.go" beforeDir="false" afterPath="$PROJECT_DIR$/blockchain.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cli.go" beforeDir="false" afterPath="$PROJECT_DIR$/cli.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transaction.go" beforeDir="false" afterPath="$PROJECT_DIR$/transaction.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wallet.go" beforeDir="false" afterPath="$PROJECT_DIR$/wallet.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wallets.go" beforeDir="false" afterPath="$PROJECT_DIR$/wallets.go" afterDir="false" />
-    </list>
+    <list default="true" id="0e1158eb-d8fb-466a-8f14-1f78963bf11b" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

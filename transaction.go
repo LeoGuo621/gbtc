@@ -204,6 +204,7 @@ func NewCoinbaseTX(to, data string) *Transaction {
 		Vin:  []TXInput{txin},
 		Vout: []TXOutput{txout},
 	}
+	tx.ID = tx.Hash()
 	return &tx
 }
 

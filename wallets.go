@@ -10,23 +10,31 @@ import (
 	"os"
 )
 
-const walletfile = "wallet_%s.dat" //钱包文件
+const walletfile = "wallet.dat" //钱包文件
 
 type Wallets struct {
 	Wallets map[string]*Wallet //以钱包地址作为key
 }
 
 // 创建一个钱包或抓取已存在的钱包
-func NewWallets(walletID string) (*Wallets, error) {
+func NewWallets() (*Wallets, error) {
 	wallets := Wallets{}
 	wallets.Wallets = make(map[string]*Wallet)
-	err := wallets.LoadFromFile(walletID)
+	err := wallets.LoadFromFile()
 	return &wallets, err
 }
 
+//创建一个钱包
+func (ws *Wallets) CreateWallet() string {
+	wallet := NewWallet()//创建钱包
+	address := fmt.Sprintf("%s",wallet.GetAddress())
+	ws.Wallets[address] = wallet//保存钱包
+	return address
+}
+
 //读钱包文件
-func (ws *Wallets) LoadFromFile(walletID string) error {
-	myWalletFile := fmt.Sprintf(walletfile, walletID)
+func (ws *Wallets) LoadFromFile() error {
+	myWalletFile := walletfile
 	// 若该文件不存在则返回错误
 	if _, err := os.Stat(myWalletFile); os.IsNotExist(err) {
 		return err
@@ -50,9 +58,9 @@ func (ws *Wallets) LoadFromFile(walletID string) error {
 }
 
 //写钱包文件
-func (ws *Wallets) SaveToFile(walletID string) {
+func (ws *Wallets) SaveToFile() {
 	var content bytes.Buffer
-	myWalletFile := fmt.Sprintf(walletfile, walletID)
+	myWalletFile := walletfile
 	// 注册加密算法, 选用P256椭圆曲线
 	gob.Register(elliptic.P256())
 	encoder := gob.NewEncoder(&content) // 生成编码器

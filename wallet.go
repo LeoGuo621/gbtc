@@ -10,8 +10,8 @@ import (
 	"log"
 )
 
-const version = byte(0x00) //钱包版本
-const addressChecksumlen = 4 //地址校验和长度
+const version = byte(0x00)   //钱包版本
+const addressChecksumLen = 4 //地址校验和长度
 
 type Wallet struct {
 	PrivateKey ecdsa.PrivateKey // 解锁钱包的权限
@@ -45,7 +45,7 @@ func newKeyPair() (ecdsa.PrivateKey, []byte) {
 func checksum(payload []byte) []byte {
 	firstSHA := sha256.Sum256(payload)
 	secondSHA := sha256.Sum256(firstSHA[:])
-	return secondSHA[:addressChecksumlen]
+	return secondSHA[:addressChecksumLen]
 }
 
 //公钥哈希处理，先后经过SHA256与RIPEMD160
@@ -73,9 +73,9 @@ func (w Wallet) GetAddress() []byte {
 //校验钱包地址
 func ValidateAddress(address string) bool {
 	fullPayload := Base58Decode([]byte(address))
-	actualChecksum := fullPayload[len(fullPayload) - addressChecksumlen:] //获取解码出的校验和
-	version := fullPayload[0] // 取得钱包版本
-	pubKeyHash := fullPayload[1:len(fullPayload) - addressChecksumlen]
+	actualChecksum := fullPayload[len(fullPayload) -addressChecksumLen:] //获取解码出的校验和
+	version := fullPayload[0]                                            // 取得钱包版本
+	pubKeyHash := fullPayload[1:len(fullPayload) -addressChecksumLen]
 	targetChecksum := checksum(append([]byte{version}, pubKeyHash...)) // 计算版本号+pubKeyHash的校验和
 	return bytes.Compare(actualChecksum, targetChecksum) == 0 // 对比是否相等
 	

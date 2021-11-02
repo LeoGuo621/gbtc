@@ -63,7 +63,7 @@ func (tx *Transaction) Sign(privateKey ecdsa.PrivateKey, prevTXs map[string]Tran
 		//如果该交易的输入交易id为nil则代表先前交易有误
 		if prevTXs[hex.EncodeToString(vin.TXid)].ID == nil {
 			//TODO: 校验
-			//log.Panic("交易输入有误")
+			log.Panic("交易输入有误")
 		}
 	}
 	txCopy := tx.TrimmedCopy()
@@ -141,6 +141,8 @@ func (tx *Transaction) Verify(prevTXs map[string]Transaction) bool {
 		prevTX := prevTXs[hex.EncodeToString(vin.TXid)]
 		txCopy.Vin[inID].Signature = nil
 		txCopy.Vin[inID].PubKey = prevTX.Vout[vin.Vout].PubKeyHash
+		txCopy.ID = txCopy.Hash()
+		txCopy.Vin[inID].PubKey = nil
 
 		r, s := big.Int{}, big.Int{}
 		sigLen := len(vin.Signature)
@@ -152,12 +154,12 @@ func (tx *Transaction) Verify(prevTXs map[string]Transaction) bool {
 		x.SetBytes(vin.PubKey[:(keyLen / 2)])
 		y.SetBytes(vin.PubKey[(keyLen / 2):])
 
-		dataToVerify := fmt.Sprintf("%x\n", txCopy)
+		//dataToVerify := fmt.Sprintf("%x\n", txCopy)
 		rawPubKey := ecdsa.PublicKey{Curve: curve, X: &x, Y: &y}
-		if ecdsa.Verify(&rawPubKey, []byte(dataToVerify), &r, &s) == false {
+		if ecdsa.Verify(&rawPubKey, txCopy.ID, &r, &s) == false {
 			return false
 		}
-		txCopy.Vin[inID].PubKey = nil
+		//txCopy.Vin[inID].PubKey = nil
 	}
 	return true
 }

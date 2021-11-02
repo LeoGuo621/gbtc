@@ -63,8 +63,14 @@ func (bc *BlockChain) AddBlock(data string) {
 
 //TODO: 挖矿
 func (bc *BlockChain) MineBlock(transactions []*Transaction)  {
-	var lastHash []byte
 	//lashHash保存当前数据库最新区块的hash
+	var lastHash []byte
+	for _, tx := range transactions {
+		if bc.VerifyTransaction(tx) != true {
+			log.Panic("invalid tx")
+		}
+	}
+
 	err := bc.db.View(func(tx *bolt.Tx) error {
 		bucket := tx.Bucket([]byte(blockBucket))
 		lastHash = bucket.Get([]byte("last"))
